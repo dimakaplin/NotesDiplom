@@ -214,6 +214,7 @@
             android:background="@color/low_yellow" />
 
         <ImageButton
+            android:id="@+id/clear"
             android:src="@drawable/ic_arrow_back_black_24dp"
             android:layout_width="0dp"
             android:layout_height="50dp"
@@ -222,6 +223,7 @@
             android:background="@color/low_yellow" />
 
         <ImageButton
+            android:id="@+id/clear_all"
             android:src="@drawable/ic_clear_black_24dp"
             android:layout_width="0dp"
             android:layout_height="50dp"

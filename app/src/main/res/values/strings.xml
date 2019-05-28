@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Notes</string>
 
-    <string name="pin">Enter your pin</string>
-    <string name="save_btn">save note</string>
+    <string name="pin">Введите ваш пин</string>
+    <string name="save_btn">сохранить запись</string>
 
     <string name="num_0">0</string>
     <string name="num_1">1</string>
@@ -14,6 +14,8 @@
     <string name="num_7">7</string>
     <string name="num_8">8</string>
     <string name="num_9">9</string>
+
+    <string name="check_pin_failed" >Пин код неверный</string>
 
 
 </resources>
