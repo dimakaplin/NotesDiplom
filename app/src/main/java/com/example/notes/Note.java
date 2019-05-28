@@ -35,7 +35,7 @@ public class Note extends RealmObject {
         this.createdTime = new Date();
         this.changeTime = new Date();
         this.deadLine = null;
-        this.id = Objects.hash(this.createdTime, this.title);
+        this.id = Objects.hash(this.createdTime.getTime(), this.title, this.content);
     }
 
 

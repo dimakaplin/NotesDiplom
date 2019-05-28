@@ -2,6 +2,7 @@
     <string name="app_name">Notes</string>
 
     <string name="pin">Enter your pin</string>
+    <string name="save_btn">save note</string>
 
     <string name="num_0">0</string>
     <string name="num_1">1</string>
