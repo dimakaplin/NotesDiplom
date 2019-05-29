@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -40,6 +41,7 @@ public class PinActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pin);
+        init();
     }
 
     private void init() {
@@ -94,6 +96,7 @@ public class PinActivity extends AppCompatActivity {
         } else {
             circleColorChange(false, pin.length());
             String num = btn.getText().toString();
+            Log.d("NOTES", num);
             pin = pin + num;
         }
     }
@@ -115,28 +118,28 @@ public class PinActivity extends AppCompatActivity {
 
     private void circleColorChange(boolean delete, int pinLength) {
         switch(pinLength) {
-            case 1:
+            case 0:
                 if(delete) {
                     circle1.setBackgroundResource(R.drawable.grey_circle);
                 } else {
                    circle1.setBackgroundResource(R.drawable.red_circle);
                 }
             break;
-            case 2:
+            case 1:
                 if(delete) {
                     circle2.setBackgroundResource(R.drawable.grey_circle);
                 } else {
                     circle2.setBackgroundResource(R.drawable.red_circle);
                 }
                 break;
-            case 3:
+            case 2:
                 if(delete) {
                     circle3.setBackgroundResource(R.drawable.grey_circle);
                 } else {
                     circle3.setBackgroundResource(R.drawable.red_circle);
                 }
                 break;
-            case 4:
+            case 3:
                 if(delete) {
                     circle4.setBackgroundResource(R.drawable.grey_circle);
                 } else {

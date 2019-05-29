@@ -6,6 +6,7 @@ import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
 
 
 public class DataStorage {
@@ -34,7 +35,11 @@ public class DataStorage {
         Realm realm = Realm.getInstance(config);
         realm.insertOrUpdate(note);
         realm.close();
-
-
+    }
+    public void removeNote(Note note) {
+        Realm realm = Realm.getInstance(config);
+        RealmResults<Note> rows= realm.where(Note.class).equalTo("id", note.getId()).findAll();
+        rows.deleteAllFromRealm();
+        realm.close();
     }
 }
