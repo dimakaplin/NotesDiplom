@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -44,6 +47,8 @@ public class PinActivity extends AppCompatActivity {
         init();
     }
 
+
+
     private void init() {
         keyStore = App.getKeystore();
 
@@ -82,7 +87,17 @@ public class PinActivity extends AppCompatActivity {
     }
 
     private void numClick(Button btn) {
+        Log.d("NOTES", btn.getText().toString());
+        if(pin.length() < 4) {
+            Log.d("NOTES", String.valueOf(pin.length() < 4));
+            circleColorChange(false, pin.length());
+            String num = btn.getText().toString();
+
+            pin = pin + num;
+        }
+
         if(pin.length() == 4 && keyStore.hasPin()) {
+            Log.d("NOTES", String.valueOf(keyStore.hasPin()));
             if(keyStore.checkPin(pin)) {
                 intent = new Intent(PinActivity.this, NotesList.class);
                 startActivity(intent);
@@ -93,11 +108,8 @@ public class PinActivity extends AppCompatActivity {
             }
         } else if (pin.length() == 4 && !keyStore.hasPin()) {
             keyStore.saveNew(pin);
-        } else {
-            circleColorChange(false, pin.length());
-            String num = btn.getText().toString();
-            Log.d("NOTES", num);
-            pin = pin + num;
+            intent = new Intent(PinActivity.this, NotesList.class);
+            startActivity(intent);
         }
     }
 
@@ -111,8 +123,11 @@ public class PinActivity extends AppCompatActivity {
 
     private void clear() {
         int pinLength = pin.length();
-        pin = pin.substring(0, pin.length()-1);
-        circleColorChange(true, pinLength);
+        if(pinLength > 0) {
+            pin = pin.substring(0, pin.length()-1);
+            circleColorChange(true, pinLength);
+        }
+
 
     }
 

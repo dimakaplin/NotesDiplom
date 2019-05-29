@@ -16,6 +16,11 @@
     <string name="num_9">9</string>
 
     <string name="check_pin_failed" >Пин код неверный</string>
+    <string name="check_date_failed" >Вы ввели время не в том формате</string>
+    <string name="save_note" >Сохранить</string>
+    <string name="title" >Название</string>
+    <string name="content" >Описание</string>
+    <string name="deadline" >Дэдлайн в формате dd-mm-yyyy hh:mm</string>
 
 
 </resources>

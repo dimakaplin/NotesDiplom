@@ -19,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:hint="@string/title"
 
  />
 
@@ -28,6 +29,7 @@
 
         android:layout_height="0dp"
         android:layout_weight="6"
+        android:hint="@string/content"
  />
         <EditText
             android:id="@+id/deadline_ch"
@@ -35,6 +37,7 @@
 
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:hint="@string/deadline"
             />
         <Button
             android:layout_width="match_parent"
@@ -45,6 +48,7 @@
             android:layout_marginStart="40dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
+            android:text="@string/save_note"
             />
 
     </LinearLayout>

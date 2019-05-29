@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +22,8 @@ public class NotesAdapter extends BaseAdapter {
     final String LOG_TAG = "myLogs";
     Context ctx;
     LayoutInflater lInflater;
-    DataStorage storage = App.getDataStorage();
+    DataBase storage = App.getDataStorage();
+    DateFormat dateParser = App.getDatePattern();
     private List<Note> notes;
 
 
@@ -63,8 +65,14 @@ public class NotesAdapter extends BaseAdapter {
 
         ((TextView) view.findViewById(R.id.title)).setText(note.getTitle());
         ((TextView) view.findViewById(R.id.content)).setText(note.getContent());
-        ((TextView) view.findViewById(R.id.deadline)).setText(note.getDeadLine().toString());
-        ((TextView) view.findViewById(R.id.was_changed)).setText(note.getDeadLine().toString());
+
+        if(note.hasDeadLine()) {
+            ((TextView) view.findViewById(R.id.deadline)).setText(dateParser.format(note.getDeadLine()));
+        } else {
+            ((TextView) view.findViewById(R.id.deadline)).setText("");
+        }
+
+        ((TextView) view.findViewById(R.id.was_changed)).setText(dateParser.format(note.getChangeTime()));
 
         ImageButton btnDelete = (ImageButton) view.findViewById(R.id.btn_delete);
         ImageButton btnAdd = (ImageButton) view.findViewById(R.id.btn_add);
@@ -73,21 +81,20 @@ public class NotesAdapter extends BaseAdapter {
             Note deleteNote = this.notes.get((int) v.getTag());
 
             this.notes.remove((int) v.getTag());
-            storage.removeNote(note);
+            storage.removeNote(deleteNote);
             notifyDataSetChanged();
         });
 
         btnAdd.setOnClickListener((v) -> {
+            Note changedNote = this.notes.get((int) v.getTag());
             Intent intent = new Intent(ctx, ChangeNoteActivity.class);
+            intent.putExtra("id", changedNote.getId());
+            Log.d("NOTES", "ADAPTER " + changedNote.getId());
             ctx.startActivity(intent);
         });
 
-        view.setOnLongClickListener(v -> {
-            Toast.makeText(ctx, note.getTitle(), Toast.LENGTH_SHORT).show();
-            return true;
-        });
-
         btnDelete.setTag(position);
+        btnAdd.setTag(position);
         return view;
     }
 
