@@ -5,9 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".NotesList">
+
+    <ImageButton
+        android:id="@+id/date_sort"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorPrimary"
+        android:src="@drawable/date_sort"
+        app:layout_constraintBottom_toTopOf="@+id/list"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:nestedScrollingEnabled="true" />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:nestedScrollingEnabled="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

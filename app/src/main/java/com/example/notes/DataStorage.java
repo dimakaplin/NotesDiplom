@@ -13,6 +13,7 @@ import io.realm.RealmConfiguration;
 import io.realm.RealmObjectSchema;
 import io.realm.RealmResults;
 import io.realm.RealmSchema;
+import io.realm.Sort;
 
 
 public class DataStorage implements DataBase {
@@ -31,6 +32,18 @@ public class DataStorage implements DataBase {
         List<Note> notes = realm.copyFromRealm(realm.where(Note.class).findAll());
         realm.commitTransaction();
         realm.close();
+
+        return notes;
+    }
+
+    public List<Note> getNotes(String sortType, boolean desc) {
+        Realm realm = Realm.getInstance(config);
+        realm.beginTransaction();
+        List<Note> notes = desc ? realm.copyFromRealm(realm.where(Note.class).findAll().sort(sortType, Sort.DESCENDING)) :
+                realm.copyFromRealm(realm.where(Note.class).findAll().sort(sortType, Sort.ASCENDING));
+        realm.commitTransaction();
+        realm.close();
+        Log.d("NOTES", "sorted with" + notes.get(0).getTitle());
 
         return notes;
     }

@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface DataBase {
     List<Note> getNotes();
+    List<Note> getNotes(String sortType, boolean desc);
+
 
    Note getNote(String id);
     void saveNote(Note note);

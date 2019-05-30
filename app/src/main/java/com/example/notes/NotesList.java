@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -20,6 +21,8 @@ public class NotesList extends AppCompatActivity {
 
     private ListView list;
     private NotesAdapter notesAdapter;
+
+    private ImageButton dateSort;
 
 
     @Override
@@ -59,11 +62,19 @@ public class NotesList extends AppCompatActivity {
 
     private void init() {
         dataStorage = App.getDataStorage();
+
         fillNotesList();
         list = findViewById(R.id.list);
         notesAdapter = new NotesAdapter(this, notes);
         list = findViewById(R.id.list);
         list.setAdapter(notesAdapter);
+
+        dateSort = findViewById(R.id.date_sort);
+        dateSort.setOnClickListener(v-> {
+            Log.d("NOTES", "sort");
+            notes = dataStorage.getNotes("changeTime", true);
+            notesAdapter.notifyDataSetChanged();
+        });
 
     }
 
