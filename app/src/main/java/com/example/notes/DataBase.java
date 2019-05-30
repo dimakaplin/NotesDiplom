@@ -12,7 +12,7 @@ public interface DataBase {
 
    Note getNote(String id);
     void saveNote(Note note);
-    void updateNote(String id, String title, String content, Date deadline);
+    void updateNote(String id, String title, String content, long deadline);
     void updateNote(String id, String title, String content);
     void removeNote(Note note);
 }

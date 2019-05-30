@@ -21,10 +21,10 @@ public class Note extends RealmObject {
     private String title;
     private String content;
 
-    private Date changeTime;
-    private Date deadLine;
+    private long changeTime;
+    private long deadLine;
 
-    public Date getChangeTime() {
+    public long getChangeTime() {
         return changeTime;
     }
 
@@ -41,22 +41,22 @@ public class Note extends RealmObject {
     }
 
 
-    public Note(String title, String content, Date deadLine) {
+    public Note(String title, String content, long deadLine) {
         this.title = title;
         this.content = content;
-        this.changeTime = new Date();
+        this.changeTime = new Date().getTime();
         this.deadLine = deadLine;
         this.hasDeadLine = true;
-        this.id = String.valueOf(Objects.hash(this.changeTime.getTime(), this.deadLine, this.title));
+        this.id = String.valueOf(Objects.hash(this.changeTime, this.deadLine, this.title));
     }
 
     public Note(String title, String content) {
         this.title = title;
         this.content = content;
-        this.changeTime = new Date();
-        this.deadLine = null;
+        this.changeTime = new Date().getTime();
+        this.deadLine = 0;
         this.hasDeadLine = false;
-        this.id = String.valueOf(Objects.hash(this.changeTime.getTime(), this.title, this.content));
+        this.id = String.valueOf(Objects.hash(this.changeTime, this.title, this.content));
     }
 
 
@@ -66,7 +66,7 @@ public class Note extends RealmObject {
 
     public void setTitle(String title) {
         if(!title.equals(this.title)) {
-            this.changeTime = new Date();
+            this.changeTime = new Date().getTime();
             this.title = title;
         }
 
@@ -78,14 +78,14 @@ public class Note extends RealmObject {
 
     public void setContent(String content) {
         if(!content.equals(this.content)) {
-            this.changeTime = new Date();
+            this.changeTime = new Date().getTime();
             this.content = content;
         }
 
 
     }
 
-    public Date getDeadLine() {
+    public long getDeadLine() {
         return deadLine;
     }
 
@@ -93,9 +93,9 @@ public class Note extends RealmObject {
         return id;
     }
 
-    public void setDeadLine(Date deadLine) {
-        if(!deadLine.equals(this.deadLine)) {
-            this.changeTime = new Date();
+    public void setDeadLine(long deadLine) {
+        if(deadLine != this.deadLine) {
+            this.changeTime = new Date().getTime();
             this.deadLine = deadLine;
             this.hasDeadLine = true;
         }
@@ -103,7 +103,7 @@ public class Note extends RealmObject {
     }
 
     public void deleteDeadLine() {
-        this.deadLine = null;
+        this.deadLine = 0;
         this.hasDeadLine = false;
     }
 

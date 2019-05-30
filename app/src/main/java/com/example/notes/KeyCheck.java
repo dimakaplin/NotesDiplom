@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import static android.content.Context.MODE_PRIVATE;
+// TODO Добавить хэширование пинкода перед записью
+// TODO Добавить настройки со сменой пинкода!!!
 
 public class KeyCheck implements KeyStore {
     private SharedPreferences myNoteSharedPref;

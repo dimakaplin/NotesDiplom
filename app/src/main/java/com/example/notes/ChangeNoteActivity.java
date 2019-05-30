@@ -16,7 +16,9 @@ import java.util.Date;
 import javax.annotation.Nullable;
 
 public class ChangeNoteActivity extends AppCompatActivity {
-
+// TODO Переверстать активити
+// TODO Добавить нормальный выбор дедлайна
+// TODO Добавить выделение просранного дедлайна
     private DataBase dataStorage;
 
     private EditText title;
@@ -64,7 +66,7 @@ public class ChangeNoteActivity extends AppCompatActivity {
             title.setText(changedNote.getTitle());
             content.setText(changedNote.getContent());
             if(changedNote.hasDeadLine()) {
-                deadline.setText(dateparser.format(changedNote.getDeadLine()));
+                deadline.setText(dateparser.format(new Date(changedNote.getDeadLine())));
             }
 
 
@@ -89,10 +91,10 @@ public class ChangeNoteActivity extends AppCompatActivity {
             try{
                 deadlineTime = dateparser.parse(noteDeadline);
                 if("".equals(id)) {
-                    Note note = new Note(noteTitle, noteContent, deadlineTime);
+                    Note note = new Note(noteTitle, noteContent, deadlineTime.getTime());
                     dataStorage.saveNote(note);
                 } else {
-                    dataStorage.updateNote(changedNote.getId(), noteTitle, noteContent, deadlineTime);
+                    dataStorage.updateNote(changedNote.getId(), noteTitle, noteContent, deadlineTime.getTime());
                 }
 
             }catch(Exception e){

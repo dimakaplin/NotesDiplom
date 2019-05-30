@@ -14,7 +14,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class PinActivity extends AppCompatActivity {
-
+    // TODO Настроить кнопку удаления, не удаляет последний кружечек
     private Intent intent;
 
     KeyStore keyStore;

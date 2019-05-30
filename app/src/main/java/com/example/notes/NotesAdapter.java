@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class NotesAdapter extends BaseAdapter {
@@ -67,12 +68,12 @@ public class NotesAdapter extends BaseAdapter {
         ((TextView) view.findViewById(R.id.content)).setText(note.getContent());
 
         if(note.hasDeadLine()) {
-            ((TextView) view.findViewById(R.id.deadline)).setText(dateParser.format(note.getDeadLine()));
+            ((TextView) view.findViewById(R.id.deadline)).setText(dateParser.format(new Date(note.getDeadLine())));
         } else {
             ((TextView) view.findViewById(R.id.deadline)).setText("");
         }
 
-        ((TextView) view.findViewById(R.id.was_changed)).setText(dateParser.format(note.getChangeTime()));
+        ((TextView) view.findViewById(R.id.was_changed)).setText(dateParser.format(new Date(note.getChangeTime())));
 
         ImageButton btnDelete = (ImageButton) view.findViewById(R.id.btn_delete);
         ImageButton btnAdd = (ImageButton) view.findViewById(R.id.btn_add);

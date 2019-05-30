@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ChangeNoteActivity"
-    android:background="@color/low_yellow"
+    android:background="@color/white"
     >
 
     <LinearLayout
@@ -44,10 +44,11 @@
             android:layout_height="0dp"
             android:id="@+id/btn_save"
             android:layout_weight="1"
-            android:layout_marginEnd="40dp"
-            android:layout_marginStart="40dp"
+            android:layout_marginEnd="120dp"
+            android:layout_marginStart="120dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
+            android:background="@color/low_green"
             android:text="@string/save_note"
             />
 

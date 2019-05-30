@@ -37,12 +37,15 @@ public class DataStorage implements DataBase {
     }
 
     public List<Note> getNotes(String sortType, boolean desc) {
+        Log.d("NOTES", String.valueOf(desc));
         Realm realm = Realm.getInstance(config);
         realm.beginTransaction();
-        List<Note> notes = desc ? realm.copyFromRealm(realm.where(Note.class).findAll().sort(sortType, Sort.DESCENDING)) :
-                realm.copyFromRealm(realm.where(Note.class).findAll().sort(sortType, Sort.ASCENDING));
+        RealmResults<Note> results = desc ? realm.where(Note.class).findAll().sort(sortType, Sort.DESCENDING) :
+                realm.where(Note.class).findAll().sort(sortType, Sort.ASCENDING);
+        List<Note> notes = realm.copyFromRealm(results);
         realm.commitTransaction();
         realm.close();
+
         Log.d("NOTES", "sorted with" + notes.get(0).getTitle());
 
         return notes;
@@ -68,7 +71,7 @@ public class DataStorage implements DataBase {
         realm.close();
     }
 
-    public void updateNote(String id, String title, String content, Date deadline) {
+    public void updateNote(String id, String title, String content, long deadline) {
         Log.d("NOTES", "update "+ id);
         Realm realm = Realm.getInstance(config);
         realm.beginTransaction();

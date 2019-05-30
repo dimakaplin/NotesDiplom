@@ -8,12 +8,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
-
+// TODO Переверстать активити
+// TODO Сделать удаление элемента через алерт
 public class NotesList extends AppCompatActivity {
 
     private List<Note> notes = new ArrayList<>();
@@ -23,6 +26,12 @@ public class NotesList extends AppCompatActivity {
     private NotesAdapter notesAdapter;
 
     private ImageButton dateSort;
+    private ImageButton deadlineSort;
+    private ImageButton alphaSort;
+    private ImageView dirSort;
+    private String typeSort = "changeTime";
+
+    private boolean desc= true;
 
 
     @Override
@@ -69,14 +78,68 @@ public class NotesList extends AppCompatActivity {
         list = findViewById(R.id.list);
         list.setAdapter(notesAdapter);
 
+        dirSort = findViewById(R.id.dir_sort);
+
         dateSort = findViewById(R.id.date_sort);
-        dateSort.setOnClickListener(v-> {
-            Log.d("NOTES", "sort");
-            notes = dataStorage.getNotes("changeTime", true);
-            notesAdapter.notifyDataSetChanged();
-        });
+        deadlineSort = findViewById(R.id.deadlne_sort);
+        alphaSort = findViewById(R.id.alpha_sort);
+
+
+        dateSort.setOnClickListener(v-> clickSort(v));
+        deadlineSort.setOnClickListener(v-> clickSort(v));
+        alphaSort.setOnClickListener(v-> clickSort(v));
 
     }
+
+    private void clickSort(View v) {
+        int id = v.getId();
+        switch (id) {
+            case R.id.date_sort:
+                desc = typeSort.equals("changeTime") != desc;
+                typeSort = "changeTime";
+                dateSort.setBackgroundResource(R.drawable.low_green_circle);
+                break;
+            case R.id.deadlne_sort:
+                desc = typeSort.equals("deadLine") != desc;
+                typeSort = "deadLine";
+                break;
+            case R.id.alpha_sort:
+                desc = typeSort.equals("title") != desc;
+                typeSort = "title";
+                break;
+        }
+        setBackgroundCircle();
+
+
+        dirSort.setImageResource(desc ? R.drawable.up_sort : R.drawable.down_sort);
+
+        notes.clear();
+        notes.addAll(dataStorage.getNotes(typeSort, desc));
+        notesAdapter.notifyDataSetChanged();
+
+
+    }
+
+    private void setBackgroundCircle() {
+        switch (typeSort) {
+            case "changeTime":
+                dateSort.setBackgroundResource(R.drawable.low_green_circle);
+                deadlineSort.setBackgroundResource(R.drawable.white_circle);
+                alphaSort.setBackgroundResource(R.drawable.white_circle);
+                break;
+            case "deadLine":
+                dateSort.setBackgroundResource(R.drawable.white_circle);
+                deadlineSort.setBackgroundResource(R.drawable.low_green_circle);
+                alphaSort.setBackgroundResource(R.drawable.white_circle);
+                break;
+            case "title":
+                dateSort.setBackgroundResource(R.drawable.white_circle);
+                deadlineSort.setBackgroundResource(R.drawable.white_circle);
+                alphaSort.setBackgroundResource(R.drawable.low_green_circle);
+                break;
+        }
+    }
+
 
     private void fillNotesList() {
         notes = dataStorage.getNotes();
