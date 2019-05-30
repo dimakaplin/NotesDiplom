@@ -3,6 +3,7 @@ package com.example.notes;
 import android.content.Context;
 import android.util.Log;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -46,19 +47,46 @@ public class DataStorage implements DataBase {
         return note;
     }
 
-    public void updateNote(Note note) {
+    public void saveNote(Note note) {
         Realm realm = Realm.getInstance(config);
         realm.beginTransaction();
         realm.insertOrUpdate(note);
         realm.commitTransaction();
         realm.close();
     }
+
+    public void updateNote(String id, String title, String content, Date deadline) {
+        Log.d("NOTES", "update "+ id);
+        Realm realm = Realm.getInstance(config);
+        realm.beginTransaction();
+        Note realmNote = realm.where(Note.class).equalTo("id", id).findFirst();
+        realmNote.setTitle(title);
+        realmNote.setContent(content);
+        realmNote.setDeadLine(deadline);
+        realm.commitTransaction();
+        realm.close();
+    }
+
+    public void updateNote(String id, String title, String content) {
+        Log.d("NOTES", "update "+ id);
+        Realm realm = Realm.getInstance(config);
+        realm.beginTransaction();
+        Note realmNote = realm.where(Note.class).equalTo("id", id).findFirst();
+        realmNote.setTitle(title);
+        realmNote.setContent(content);
+        realm.commitTransaction();
+        realm.close();
+    }
+
+
+
+
     public void removeNote(Note note) {
         Realm realm = Realm.getInstance(config);
         realm.beginTransaction();
         RealmResults<Note> rows= realm.where(Note.class).equalTo("id", note.getId()).findAll();
         rows.deleteAllFromRealm();
-        realm.beginTransaction();
+        realm.commitTransaction();
         realm.close();
     }
 }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -50,11 +51,11 @@ public class NotesList extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("NOTES", "resumed");
+        init();
     }
-
 
     private void init() {
         dataStorage = App.getDataStorage();
@@ -63,7 +64,6 @@ public class NotesList extends AppCompatActivity {
         notesAdapter = new NotesAdapter(this, notes);
         list = findViewById(R.id.list);
         list.setAdapter(notesAdapter);
-        notesAdapter.notifyDataSetChanged();
 
     }
 

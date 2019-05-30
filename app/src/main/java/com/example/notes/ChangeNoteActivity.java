@@ -2,6 +2,7 @@ package com.example.notes;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -47,7 +48,10 @@ public class ChangeNoteActivity extends AppCompatActivity {
         saveBtn = findViewById(R.id.btn_save);
 
         saveBtn.setOnClickListener(v-> {
-            saveNote();
+            if(saveNote()) {
+                Intent intent = new Intent(ChangeNoteActivity.this, NotesList.class);
+                startActivity(intent);
+            }
         });
 
     }
@@ -68,7 +72,7 @@ public class ChangeNoteActivity extends AppCompatActivity {
         }
     }
 
-    private void saveNote() {
+    private boolean saveNote() {
         String noteTitle = title.getText().toString();
         String noteContent = content.getText().toString();
         String noteDeadline = deadline.getText().toString();
@@ -76,10 +80,9 @@ public class ChangeNoteActivity extends AppCompatActivity {
         if(noteDeadline.equals("")) {
             if("".equals(id)) {
                 Note note = new Note(noteTitle, noteContent);
-                dataStorage.updateNote(note);
+                dataStorage.saveNote(note);
             } else {
-                changedNote.setTitle(noteTitle);
-                changedNote.setContent(noteContent);
+                dataStorage.updateNote(changedNote.getId(), noteTitle, noteContent);
             }
         } else {
             Date deadlineTime;
@@ -87,18 +90,18 @@ public class ChangeNoteActivity extends AppCompatActivity {
                 deadlineTime = dateparser.parse(noteDeadline);
                 if("".equals(id)) {
                     Note note = new Note(noteTitle, noteContent, deadlineTime);
-                    dataStorage.updateNote(note);
+                    dataStorage.saveNote(note);
                 } else {
-                    changedNote.setTitle(noteTitle);
-                    changedNote.setContent(noteContent);
-                    changedNote.setDeadLine(deadlineTime);
+                    dataStorage.updateNote(changedNote.getId(), noteTitle, noteContent, deadlineTime);
                 }
 
             }catch(Exception e){
                 String message = getText(R.string.check_date_failed).toString();
                 Toast.makeText(ChangeNoteActivity.this, message, Toast.LENGTH_LONG).show();
+                return false;
             }
         }
+        return true;
 
     }
 
