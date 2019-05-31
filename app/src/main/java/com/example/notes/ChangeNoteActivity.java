@@ -74,7 +74,13 @@ public class ChangeNoteActivity extends AppCompatActivity implements DeadPicker.
     private void pickDeadLine() {
         DeadPicker deadPicker = new DeadPicker();
         Bundle args = new Bundle();
-        args.putLong("time", changedNote.hasDeadLine() ? changedTime : new Date().getTime());
+        if(changedNote != null) {
+            args.putLong("time", changedNote.hasDeadLine() ? changedTime : new Date().getTime());
+        } else {
+            args.putLong("time",  new Date().getTime());
+        }
+
+
         deadPicker.setArguments(args);
         deadPicker.show(getSupportFragmentManager(), "picker");
     }
@@ -118,10 +124,10 @@ public class ChangeNoteActivity extends AppCompatActivity implements DeadPicker.
             try {
                 deadlineTime = dateparser.parse(noteDeadline);
                 if ("".equals(id)) {
-                    Note note = new Note(noteTitle, noteContent, deadlineTime.getTime());
+                    Note note = new Note(noteTitle, noteContent, changedTime);
                     dataStorage.saveNote(note);
                 } else {
-                    dataStorage.updateNote(changedNote.getId(), noteTitle, noteContent, deadlineTime.getTime());
+                    dataStorage.updateNote(changedNote.getId(), noteTitle, noteContent, changedTime);
                 }
 
             } catch (Exception e) {

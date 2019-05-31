@@ -3,6 +3,7 @@ package com.example.notes;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,14 +23,14 @@ public class DeadPicker extends DialogFragment {
     private DateListener listener;
 
 
-    private CalendarView calendar;
+    private CalendarView calendarView;
     SeekBar hoursCh;
     SeekBar minCh;
 
     TextView hours;
     TextView min;
 
-    Calendar cal;
+    Calendar calendar;
 
     public interface DateListener {
         public void getDate(long time);
@@ -51,20 +52,20 @@ public class DeadPicker extends DialogFragment {
 
         View v = inflater.inflate(R.layout.dead_line_picker, container, false);
 
-        calendar = v.findViewById(R.id.pick_date);
-        calendar.setDate(time);
+        calendarView = v.findViewById(R.id.pick_date);
+        calendarView.setDate(time);
 
         hoursCh = v.findViewById(R.id.hours_ch);
         minCh = v.findViewById(R.id.min_ch);
         hours = v.findViewById(R.id.hours);
         min = v.findViewById(R.id.min);
-        cal = new GregorianCalendar();
-        cal.setTimeInMillis(time);
-        String initHours = String.valueOf(cal.get(Calendar.HOUR_OF_DAY));
-        String initMin = String.valueOf(cal.get(Calendar.MINUTE));
+        calendar = new GregorianCalendar();
+        calendar.setTimeInMillis(time);
+        String initHours = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
+        String initMin = String.valueOf(calendar.get(Calendar.MINUTE));
 
-        hoursCh.setProgress(cal.get(Calendar.HOUR_OF_DAY));
-        minCh.setProgress(cal.get(Calendar.MINUTE));
+        hoursCh.setProgress(calendar.get(Calendar.HOUR_OF_DAY));
+        minCh.setProgress(calendar.get(Calendar.MINUTE));
 
         hours.setText(initHours.length() > 1 ? initHours : "0" + initHours);
         min.setText(initMin.length() > 1 ? initMin : "0" + initMin);
@@ -105,14 +106,16 @@ public class DeadPicker extends DialogFragment {
             }
         });
 
-
-
+        calendarView.setOnDateChangeListener((CalendarView calendarView, int i, int i1, int i2)-> {
+            Log.d("NOTES", String.valueOf(i1));
+            calendar.set(i, i1, i2);
+        });
 
         v.findViewById(R.id.ok_btn).setOnClickListener(b-> {
-            cal.setTimeInMillis(calendar.getDate());
-            cal.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hours.getText().toString()));
-            cal.set(Calendar.MINUTE, Integer.parseInt(min.getText().toString()));
-            time = cal.getTimeInMillis();
+            Log.d("NOTES", new Date(calendarView.getDate()).toString());
+            calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hours.getText().toString()));
+            calendar.set(Calendar.MINUTE, Integer.parseInt(min.getText().toString()));
+            time = calendar.getTimeInMillis();
 
 
 

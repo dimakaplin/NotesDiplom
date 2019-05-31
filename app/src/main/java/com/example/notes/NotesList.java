@@ -15,7 +15,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
-// TODO Переверстать активити
+
 // TODO Сделать удаление элемента через алерт
 public class NotesList extends AppCompatActivity {
 

@@ -14,7 +14,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class PinActivity extends AppCompatActivity {
-    // TODO Настроить кнопку удаления, не удаляет последний кружечек
+
     private Intent intent;
 
     KeyStore keyStore;
@@ -123,9 +123,13 @@ public class PinActivity extends AppCompatActivity {
 
     private void clear() {
         int pinLength = pin.length();
+        circleColorChange(true, pinLength-1);
         if(pinLength > 0) {
+            Log.d("NOTES", "clear " + pin);
+
             pin = pin.substring(0, pin.length()-1);
-            circleColorChange(true, pinLength);
+
+            Log.d("NOTES", "clear after" + pin);
         }
 
 

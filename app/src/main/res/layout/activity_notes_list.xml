@@ -10,51 +10,51 @@
         android:id="@+id/date_sort"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="70dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="50dp"
         android:background="@drawable/white_circle"
         android:src="@drawable/date_sort"
         app:layout_constraintBottom_toTopOf="@+id/list"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/deadlne_sort"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/deadlne_sort"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="70dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="50dp"
         android:background="@drawable/white_circle"
         android:src="@drawable/deadline_sort"
         app:layout_constraintBottom_toTopOf="@+id/list"
-        app:layout_constraintStart_toEndOf="@id/date_sort"
+        app:layout_constraintEnd_toStartOf="@+id/alpha_sort"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/alpha_sort"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="70dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="50dp"
         android:background="@drawable/white_circle"
         android:src="@drawable/alpha_sort"
         app:layout_constraintBottom_toTopOf="@+id/list"
-        app:layout_constraintStart_toEndOf="@id/deadlne_sort"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/dir_sort"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="75dp"
         android:layout_marginBottom="50dp"
         android:src="@drawable/up_sort"
         app:layout_constraintBottom_toTopOf="@+id/list"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ListView

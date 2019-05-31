@@ -20,14 +20,21 @@
     <string name="save_note" >Сохранить</string>
     <string name="title" >Название</string>
     <string name="content" >Описание</string>
-    <string name="deadline" >Дэдлайн</string>
+
+    <string name="deadline_text" >Дэдлайн</string>
+    <string name="deadline_text_elem" >дэдлайн:</string>
+    <string name="was_changed" >Изменено</string>
+    <string name="was_changed_elem" >изменено:</string>
+
+
 
     <string name="hours" >ч</string>
     <string name="min" >м</string>
     <string name="sep" >:</string>
 
-    <string name="ok" >ок</string>
-    <string name="no" >отмена</string>
+    <string name="ok_btn" >ок</string>
+    <string name="no_btn" >отмена</string>
+
 
 
 </resources>
