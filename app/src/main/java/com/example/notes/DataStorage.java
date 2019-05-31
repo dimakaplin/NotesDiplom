@@ -88,6 +88,7 @@ public class DataStorage implements DataBase {
         Realm realm = Realm.getInstance(config);
         realm.beginTransaction();
         Note realmNote = realm.where(Note.class).equalTo("id", id).findFirst();
+        realmNote.deleteDeadLine();
         realmNote.setTitle(title);
         realmNote.setContent(content);
         realm.commitTransaction();

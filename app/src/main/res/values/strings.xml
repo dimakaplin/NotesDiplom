@@ -20,7 +20,14 @@
     <string name="save_note" >Сохранить</string>
     <string name="title" >Название</string>
     <string name="content" >Описание</string>
-    <string name="deadline" >Дэдлайн в формате dd-mm-yyyy hh:mm</string>
+    <string name="deadline" >Дэдлайн</string>
+
+    <string name="hours" >ч</string>
+    <string name="min" >м</string>
+    <string name="sep" >:</string>
+
+    <string name="ok" >ок</string>
+    <string name="no" >отмена</string>
 
 
 </resources>

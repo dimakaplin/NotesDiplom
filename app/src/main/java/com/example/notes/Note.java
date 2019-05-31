@@ -54,7 +54,7 @@ public class Note extends RealmObject {
         this.title = title;
         this.content = content;
         this.changeTime = new Date().getTime();
-        this.deadLine = 0;
+        this.deadLine = new Date().getTime() * 2;
         this.hasDeadLine = false;
         this.id = String.valueOf(Objects.hash(this.changeTime, this.title, this.content));
     }
@@ -103,8 +103,9 @@ public class Note extends RealmObject {
     }
 
     public void deleteDeadLine() {
-        this.deadLine = 0;
+        this.deadLine = new Date().getTime() * 2;
         this.hasDeadLine = false;
+        this.changeTime = new Date().getTime();
     }
 
     @Override

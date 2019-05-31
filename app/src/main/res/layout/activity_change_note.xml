@@ -8,51 +8,92 @@
     android:background="@color/white"
     >
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        >
 
     <EditText
         android:id="@+id/title_ch"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="32dp"
         android:layout_weight="1"
-        android:hint="@string/title"
 
- />
+        android:hint="@string/title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/content_ch"
         android:layout_width="match_parent"
 
         android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="32dp"
         android:layout_weight="6"
         android:hint="@string/content"
- />
-        <EditText
-            android:id="@+id/deadline_ch"
-            android:layout_width="match_parent"
+        app:layout_constraintBottom_toTopOf="@+id/deadline_ch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_ch" />
 
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:hint="@string/deadline"
-            />
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:id="@+id/btn_save"
-            android:layout_weight="1"
-            android:layout_marginEnd="120dp"
-            android:layout_marginStart="120dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@color/low_green"
-            android:text="@string/save_note"
-            />
+    <TextView
+        android:id="@+id/deadline_ch"
+        android:layout_width="0dp"
 
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+
+        android:layout_marginBottom="32dp"
+        android:layout_weight="1"
+        android:hint="@string/deadline"
+        app:layout_constraintBottom_toTopOf="@+id/btn_save"
+        app:layout_constraintEnd_toStartOf="@id/add_dead"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/content_ch" />
+
+    <ImageButton
+        android:id="@+id/add_dead"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/white_circle"
+        android:src="@drawable/add_dead"
+        app:layout_constraintBottom_toTopOf="@+id/btn_save"
+        app:layout_constraintEnd_toStartOf="@+id/delete_dead"
+        app:layout_constraintStart_toEndOf="@+id/deadline_ch"
+        app:layout_constraintTop_toBottomOf="@+id/content_ch" />
+
+    <ImageButton
+        android:id="@+id/delete_dead"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/white_circle"
+        android:src="@drawable/delete_dead"
+        app:layout_constraintBottom_toTopOf="@+id/btn_save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/add_dead"
+        app:layout_constraintTop_toBottomOf="@+id/content_ch" />
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="32dp"
+        android:layout_weight="1"
+        android:background="@color/low_green"
+        android:text="@string/save_note"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
