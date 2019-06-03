@@ -1,17 +1,14 @@
 package com.example.notes;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class PinActivity extends AppCompatActivity {
 
@@ -48,7 +45,6 @@ public class PinActivity extends AppCompatActivity {
     }
 
 
-
     private void init() {
         keyStore = App.getKeystore();
 
@@ -66,29 +62,29 @@ public class PinActivity extends AppCompatActivity {
         clear = findViewById(R.id.clear);
         clearAll = findViewById(R.id.clear_all);
 
-        circle1  = findViewById(R.id.c1);
-        circle2  = findViewById(R.id.c2);
-        circle3  = findViewById(R.id.c3);
-        circle4  = findViewById(R.id.c4);
+        circle1 = findViewById(R.id.c1);
+        circle2 = findViewById(R.id.c2);
+        circle3 = findViewById(R.id.c3);
+        circle4 = findViewById(R.id.c4);
 
-        btn0.setOnClickListener(v-> numClick((Button) v));
-        btn1.setOnClickListener(v-> numClick((Button) v));
-        btn2.setOnClickListener(v-> numClick((Button) v));
-        btn3.setOnClickListener(v-> numClick((Button) v));
-        btn4.setOnClickListener(v-> numClick((Button) v));
-        btn5.setOnClickListener(v-> numClick((Button) v));
-        btn6.setOnClickListener(v-> numClick((Button) v));
-        btn7.setOnClickListener(v-> numClick((Button) v));
-        btn8.setOnClickListener(v-> numClick((Button) v));
-        btn9.setOnClickListener(v-> numClick((Button) v));
+        btn0.setOnClickListener(v -> numClick((Button) v));
+        btn1.setOnClickListener(v -> numClick((Button) v));
+        btn2.setOnClickListener(v -> numClick((Button) v));
+        btn3.setOnClickListener(v -> numClick((Button) v));
+        btn4.setOnClickListener(v -> numClick((Button) v));
+        btn5.setOnClickListener(v -> numClick((Button) v));
+        btn6.setOnClickListener(v -> numClick((Button) v));
+        btn7.setOnClickListener(v -> numClick((Button) v));
+        btn8.setOnClickListener(v -> numClick((Button) v));
+        btn9.setOnClickListener(v -> numClick((Button) v));
 
-        clear.setOnClickListener(v-> clear());
-        clearAll.setOnClickListener(v-> clearAll());
+        clear.setOnClickListener(v -> clear());
+        clearAll.setOnClickListener(v -> clearAll());
     }
 
     private void numClick(Button btn) {
         Log.d("NOTES", btn.getText().toString());
-        if(pin.length() < 4) {
+        if (pin.length() < 4) {
             Log.d("NOTES", String.valueOf(pin.length() < 4));
             circleColorChange(false, pin.length());
             String num = btn.getText().toString();
@@ -96,9 +92,9 @@ public class PinActivity extends AppCompatActivity {
             pin = pin + num;
         }
 
-        if(pin.length() == 4 && keyStore.hasPin()) {
+        if (pin.length() == 4 && keyStore.hasPin()) {
             Log.d("NOTES", String.valueOf(keyStore.hasPin()));
-            if(keyStore.checkPin(pin)) {
+            if (keyStore.checkPin(pin)) {
                 intent = new Intent(PinActivity.this, NotesList.class);
                 startActivity(intent);
             } else {
@@ -123,11 +119,11 @@ public class PinActivity extends AppCompatActivity {
 
     private void clear() {
         int pinLength = pin.length();
-        circleColorChange(true, pinLength-1);
-        if(pinLength > 0) {
+        circleColorChange(true, pinLength - 1);
+        if (pinLength > 0) {
             Log.d("NOTES", "clear " + pin);
 
-            pin = pin.substring(0, pin.length()-1);
+            pin = pin.substring(0, pin.length() - 1);
 
             Log.d("NOTES", "clear after" + pin);
         }
@@ -136,37 +132,37 @@ public class PinActivity extends AppCompatActivity {
     }
 
     private void circleColorChange(boolean delete, int pinLength) {
-        switch(pinLength) {
+        switch (pinLength) {
             case 0:
-                if(delete) {
+                if (delete) {
                     circle1.setBackgroundResource(R.drawable.grey_circle);
                 } else {
-                   circle1.setBackgroundResource(R.drawable.red_circle);
+                    circle1.setBackgroundResource(R.drawable.red_circle);
                 }
-            break;
+                break;
             case 1:
-                if(delete) {
+                if (delete) {
                     circle2.setBackgroundResource(R.drawable.grey_circle);
                 } else {
                     circle2.setBackgroundResource(R.drawable.red_circle);
                 }
                 break;
             case 2:
-                if(delete) {
+                if (delete) {
                     circle3.setBackgroundResource(R.drawable.grey_circle);
                 } else {
                     circle3.setBackgroundResource(R.drawable.red_circle);
                 }
                 break;
             case 3:
-                if(delete) {
+                if (delete) {
                     circle4.setBackgroundResource(R.drawable.grey_circle);
                 } else {
                     circle4.setBackgroundResource(R.drawable.red_circle);
                 }
                 break;
-                default:
-                    break;
+            default:
+                break;
         }
     }
 

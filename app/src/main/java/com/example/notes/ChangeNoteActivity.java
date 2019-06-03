@@ -1,24 +1,26 @@
 package com.example.notes;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.text.DateFormat;
 import java.util.Date;
-
-import javax.annotation.Nullable;
 
 public class ChangeNoteActivity extends AppCompatActivity implements DeadPicker.DateListener {
     // TODO Переверстать активити
 // TODO Добавить выделение просранного дедлайна
+    // TODO попытаться сделать шифрование заметочерез Realm
     private DataBase dataStorage;
 
     private EditText title;
@@ -33,6 +35,26 @@ public class ChangeNoteActivity extends AppCompatActivity implements DeadPicker.
     private long changedTime;
     private ImageButton deadAdd;
     private ImageButton deadDelete;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.change_note_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id) {
+            case R.id.back:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,11 +83,11 @@ public class ChangeNoteActivity extends AppCompatActivity implements DeadPicker.
             }
         });
 
-        deadAdd.setOnClickListener(v-> {
+        deadAdd.setOnClickListener(v -> {
             pickDeadLine();
         });
 
-        deadDelete.setOnClickListener(v-> {
+        deadDelete.setOnClickListener(v -> {
             deadline.setText("");
         });
 
@@ -74,10 +96,10 @@ public class ChangeNoteActivity extends AppCompatActivity implements DeadPicker.
     private void pickDeadLine() {
         DeadPicker deadPicker = new DeadPicker();
         Bundle args = new Bundle();
-        if(changedNote != null) {
+        if (changedNote != null) {
             args.putLong("time", changedNote.hasDeadLine() ? changedTime : new Date().getTime());
         } else {
-            args.putLong("time",  new Date().getTime());
+            args.putLong("time", new Date().getTime());
         }
 
 

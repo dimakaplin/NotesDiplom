@@ -3,14 +3,11 @@ package com.example.notes;
 
 import androidx.annotation.Nullable;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.Date;
 import java.util.Objects;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
-import io.realm.annotations.Required;
 
 public class Note extends RealmObject {
 
@@ -27,7 +24,6 @@ public class Note extends RealmObject {
     public long getChangeTime() {
         return changeTime;
     }
-
 
 
     public boolean hasDeadLine() {
@@ -65,7 +61,7 @@ public class Note extends RealmObject {
     }
 
     public void setTitle(String title) {
-        if(!title.equals(this.title)) {
+        if (!title.equals(this.title)) {
             this.changeTime = new Date().getTime();
             this.title = title;
         }
@@ -77,7 +73,7 @@ public class Note extends RealmObject {
     }
 
     public void setContent(String content) {
-        if(!content.equals(this.content)) {
+        if (!content.equals(this.content)) {
             this.changeTime = new Date().getTime();
             this.content = content;
         }
@@ -94,7 +90,7 @@ public class Note extends RealmObject {
     }
 
     public void setDeadLine(long deadLine) {
-        if(deadLine != this.deadLine) {
+        if (deadLine != this.deadLine) {
             this.changeTime = new Date().getTime();
             this.deadLine = deadLine;
             this.hasDeadLine = true;

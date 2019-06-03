@@ -7,15 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -67,7 +62,7 @@ public class NotesAdapter extends BaseAdapter {
         ((TextView) view.findViewById(R.id.title)).setText(note.getTitle());
         ((TextView) view.findViewById(R.id.content)).setText(note.getContent());
 
-        if(note.hasDeadLine()) {
+        if (note.hasDeadLine()) {
             ((TextView) view.findViewById(R.id.deadline)).setText(dateParser.format(new Date(note.getDeadLine())));
         } else {
             ((TextView) view.findViewById(R.id.deadline)).setText("");

@@ -1,6 +1,5 @@
 package com.example.notes;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,6 +41,7 @@ public class DeadPicker extends DialogFragment {
 
         listener = (DateListener) context;
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -106,17 +106,16 @@ public class DeadPicker extends DialogFragment {
             }
         });
 
-        calendarView.setOnDateChangeListener((CalendarView calendarView, int i, int i1, int i2)-> {
+        calendarView.setOnDateChangeListener((CalendarView calendarView, int i, int i1, int i2) -> {
             Log.d("NOTES", String.valueOf(i1));
             calendar.set(i, i1, i2);
         });
 
-        v.findViewById(R.id.ok_btn).setOnClickListener(b-> {
+        v.findViewById(R.id.ok_btn).setOnClickListener(b -> {
             Log.d("NOTES", new Date(calendarView.getDate()).toString());
             calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hours.getText().toString()));
             calendar.set(Calendar.MINUTE, Integer.parseInt(min.getText().toString()));
             time = calendar.getTimeInMillis();
-
 
 
             listener.getDate(time);
@@ -124,14 +123,11 @@ public class DeadPicker extends DialogFragment {
             getDialog().dismiss();
         });
 
-        v.findViewById(R.id.no_btn).setOnClickListener(b-> {
+        v.findViewById(R.id.no_btn).setOnClickListener(b -> {
 
 
             getDialog().cancel();
         });
-
-
-
 
 
         return v;

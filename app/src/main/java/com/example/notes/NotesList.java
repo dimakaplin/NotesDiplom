@@ -1,7 +1,5 @@
 package com.example.notes;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +10,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,8 @@ public class NotesList extends AppCompatActivity {
     private ImageView dirSort;
     private String typeSort = "changeTime";
 
-    private boolean desc= true;
+    private boolean desc = true;
+    private Intent intent;
 
 
     @Override
@@ -47,7 +48,11 @@ public class NotesList extends AppCompatActivity {
 
         switch (id) {
             case R.id.add_note:
-                Intent intent = new Intent(NotesList.this, ChangeNoteActivity.class);
+                intent = new Intent(NotesList.this, ChangeNoteActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.settings:
+                intent = new Intent(NotesList.this, SettingsActivity.class);
                 startActivity(intent);
                 return true;
             default:
@@ -85,9 +90,9 @@ public class NotesList extends AppCompatActivity {
         alphaSort = findViewById(R.id.alpha_sort);
 
 
-        dateSort.setOnClickListener(v-> clickSort(v));
-        deadlineSort.setOnClickListener(v-> clickSort(v));
-        alphaSort.setOnClickListener(v-> clickSort(v));
+        dateSort.setOnClickListener(v -> clickSort(v));
+        deadlineSort.setOnClickListener(v -> clickSort(v));
+        alphaSort.setOnClickListener(v -> clickSort(v));
 
     }
 

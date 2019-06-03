@@ -2,7 +2,11 @@
     <string name="app_name">Notes</string>
 
     <string name="pin">Введите ваш пин</string>
+    <string name="pin_new">Введите новый ваш пин</string>
+    <string name="pin_save">cохранить пинкод</string>
     <string name="save_btn">сохранить запись</string>
+    <string name="pin_hint">4-х значный пикод</string>
+    <string name="pin_message">вы поменяли пинкод</string>
 
     <string name="num_0">0</string>
     <string name="num_1">1</string>
