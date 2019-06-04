@@ -148,5 +148,6 @@ public class NotesList extends AppCompatActivity {
 
     private void fillNotesList() {
         notes = dataStorage.getNotes();
+//        Log.d("NOTES", notes.get(0).getTitle());
     }
 }

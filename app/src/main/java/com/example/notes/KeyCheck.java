@@ -8,12 +8,16 @@ import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKeys;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
+import java.util.Random;
 
 public class KeyCheck implements KeyStore {
     private SharedPreferences myNoteSharedPref;
     private final String PIN_CODE = "PIN_CODE";
-    private static final String PIN = "PIN_APP";
+    private final String KEY = "KEY";
+    private final String SECURE_INFO = "NOTES_APP";
 
     private String masterKeyAlias;
 
@@ -22,7 +26,7 @@ public class KeyCheck implements KeyStore {
         masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
         Log.d("NOTES", String.valueOf(myNoteSharedPref == null));
         myNoteSharedPref = EncryptedSharedPreferences.create(
-                PIN,
+                SECURE_INFO,
                 masterKeyAlias,
                 context,
                 EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
@@ -31,12 +35,10 @@ public class KeyCheck implements KeyStore {
     }
 
     public boolean hasPin() {
-        Log.d("n", String.valueOf(myNoteSharedPref == null));
         return myNoteSharedPref.contains(PIN_CODE);
     }
 
     public boolean checkPin(String pin) {
-        Log.d("NOTES", myNoteSharedPref.getString(PIN_CODE, ""));
         return pin.equals(myNoteSharedPref.getString(PIN_CODE, ""));
 
     }
@@ -45,5 +47,21 @@ public class KeyCheck implements KeyStore {
         SharedPreferences.Editor myEditor = myNoteSharedPref.edit();
         myEditor.putString(PIN_CODE, pin);
         myEditor.apply();
+    }
+
+    public byte[] getKey() {
+        if(myNoteSharedPref.contains(KEY)) {
+            byte[] key = myNoteSharedPref.getString(KEY, "").getBytes(StandardCharsets.ISO_8859_1);
+            Log.d("NOTES", new String(key, StandardCharsets.ISO_8859_1));
+            return key;
+        } else {
+            Random rand = new Random(64);
+            byte[] key = new byte[64];
+            rand.nextBytes(key);
+            SharedPreferences.Editor myEditor = myNoteSharedPref.edit();
+            myEditor.putString(KEY, new String(key, StandardCharsets.ISO_8859_1));
+            myEditor.apply();
+            return key;
+        }
     }
 }

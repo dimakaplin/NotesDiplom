@@ -32,7 +32,7 @@ public class ChangeNoteActivity extends AppCompatActivity implements DeadPicker.
 
     private String id;
     private Note changedNote;
-    private long changedTime;
+    private long deadLineTime;
     private ImageButton deadAdd;
     private ImageButton deadDelete;
 
@@ -97,7 +97,7 @@ public class ChangeNoteActivity extends AppCompatActivity implements DeadPicker.
         DeadPicker deadPicker = new DeadPicker();
         Bundle args = new Bundle();
         if (changedNote != null) {
-            args.putLong("time", changedNote.hasDeadLine() ? changedTime : new Date().getTime());
+            args.putLong("time", changedNote.hasDeadLine() ? deadLineTime : new Date().getTime());
         } else {
             args.putLong("time", new Date().getTime());
         }
@@ -111,12 +111,12 @@ public class ChangeNoteActivity extends AppCompatActivity implements DeadPicker.
         if (!"".equals(id)) {
             Log.d("NOTES", "CAHNGE " + id);
             changedNote = dataStorage.getNote(id);
-            changedTime = changedNote.getDeadLine();
+            deadLineTime = changedNote.getDeadLine();
 
             title.setText(changedNote.getTitle());
             content.setText(changedNote.getContent());
             if (changedNote.hasDeadLine()) {
-                deadline.setText(dateparser.format(new Date(changedTime)));
+                deadline.setText(dateparser.format(new Date(deadLineTime)));
             }
 
 
@@ -125,8 +125,8 @@ public class ChangeNoteActivity extends AppCompatActivity implements DeadPicker.
 
     public void getDate(long time) {
         Log.d("NOTES", String.valueOf(time));
-        changedTime = time;
-        deadline.setText(dateparser.format(new Date(changedTime)));
+        deadLineTime = time;
+        deadline.setText(dateparser.format(new Date(deadLineTime)));
     }
 
     private boolean saveNote() {
@@ -142,14 +142,12 @@ public class ChangeNoteActivity extends AppCompatActivity implements DeadPicker.
                 dataStorage.updateNote(changedNote.getId(), noteTitle, noteContent);
             }
         } else {
-            Date deadlineTime;
             try {
-                deadlineTime = dateparser.parse(noteDeadline);
                 if ("".equals(id)) {
-                    Note note = new Note(noteTitle, noteContent, changedTime);
+                    Note note = new Note(noteTitle, noteContent, deadLineTime);
                     dataStorage.saveNote(note);
                 } else {
-                    dataStorage.updateNote(changedNote.getId(), noteTitle, noteContent, changedTime);
+                    dataStorage.updateNote(changedNote.getId(), noteTitle, noteContent, deadLineTime);
                 }
 
             } catch (Exception e) {

@@ -23,8 +23,9 @@ public class NotesAdapter extends BaseAdapter {
     DataBase storage = App.getDataStorage();
     DateFormat dateParser = App.getDatePattern();
     private List<Note> notes;
-
+    DateFormat dateToDay = App.getDateToDay();
     AlertDialog.Builder ad;
+    String deleteMessage;
 
 
     public NotesAdapter(Context ctx, List<Note> notes) {
@@ -68,12 +69,15 @@ public class NotesAdapter extends BaseAdapter {
 
         if (note.hasDeadLine()) {
             ((TextView) view.findViewById(R.id.deadline)).setText(dateParser.format(new Date(note.getDeadLine())));
-            if (note.getDeadLine() > new Date().getTime()) {
-                ((TextView) view.findViewById(R.id.deadline)).getBackground().setAlpha(0);
+            Log.d("NOTES", note.getTitle() + " " + String.valueOf(note.hasDeadLine()));
+            if (note.getDeadLine() > new Date().getTime() && dateToDay.format(new Date(note.getDeadLine())).equals(dateToDay.format(new Date().getTime()))) {
+                ((TextView) view.findViewById(R.id.deadline)).setBackgroundResource(R.drawable.orange_card);
+            } else if (note.getDeadLine() < new Date().getTime()) {
+                ((TextView) view.findViewById(R.id.deadline)).setBackgroundResource(R.drawable.red_card);
             }
         } else {
             ((TextView) view.findViewById(R.id.deadline)).setText("");
-            ((TextView) view.findViewById(R.id.deadline)).getBackground().setAlpha(0);
+            // ((TextView) view.findViewById(R.id.deadline)).getBackground().setAlpha(0);
         }
 
         ((TextView) view.findViewById(R.id.was_changed)).setText(dateParser.format(new Date(note.getChangeTime())));
@@ -100,17 +104,19 @@ public class NotesAdapter extends BaseAdapter {
     }
 
     private void initDeleteDialog(View v) {
+        Note deleteNote = notes.get((int) v.getTag());
         ad = new AlertDialog.Builder(ctx);
-        ad.setMessage(R.string.delete_req);
-        ad.setPositiveButton(R.string.delete_yes, ((DialogInterface dialog, int arg1)-> {
-                Note deleteNote = notes.get((int) v.getTag());
-                notes.remove((int) v.getTag());
-                storage.removeNote(deleteNote);
-                notifyDataSetChanged();
-                dialog.cancel();
-            }));
+        deleteMessage = ctx.getString(R.string.delete_req);
+        ad.setMessage(deleteMessage + " \"" + deleteNote.getTitle() + "\" " + "?");
+        ad.setPositiveButton(R.string.delete_yes, ((DialogInterface dialog, int arg1) -> {
 
-        ad.setNegativeButton(R.string.delete_no, ((DialogInterface dialog, int arg1)-> {
+            notes.remove((int) v.getTag());
+            storage.removeNote(deleteNote);
+            notifyDataSetChanged();
+            dialog.cancel();
+        }));
+
+        ad.setNegativeButton(R.string.delete_no, ((DialogInterface dialog, int arg1) -> {
             dialog.cancel();
         }));
     }

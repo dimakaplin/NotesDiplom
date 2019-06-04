@@ -11,12 +11,13 @@ public class App extends Application {
     private static DataBase dataStorage;
     private static KeyStore keystore;
     private static DateFormat dateParser;
+    private static DateFormat dateToDay;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        dataStorage = new DataStorage(this);
+
         try {
             keystore = new KeyCheck(this);
         } catch (GeneralSecurityException e) {
@@ -24,7 +25,9 @@ public class App extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        dataStorage = new DataStorage(this);
         dateParser = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        dateToDay = new SimpleDateFormat("dd-MM-yyyy");
     }
 
 
@@ -38,5 +41,9 @@ public class App extends Application {
 
     public static DateFormat getDatePattern() {
         return dateParser;
+    }
+
+    public static DateFormat getDateToDay() {
+        return dateToDay;
     }
 }

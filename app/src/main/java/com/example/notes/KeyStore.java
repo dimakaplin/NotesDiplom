@@ -6,4 +6,6 @@ public interface KeyStore {
     boolean checkPin(String pin);
 
     void saveNew(String pin);
+
+    byte[] getKey();
 }

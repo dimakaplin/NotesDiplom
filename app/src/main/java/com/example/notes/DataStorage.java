@@ -13,11 +13,14 @@ import io.realm.Sort;
 
 public class DataStorage implements DataBase {
     RealmConfiguration config;
-    ;
+    KeyStore keyStore;
+    private byte[] key;
 
     public DataStorage(Context context) {
+        keyStore = App.getKeystore();
         Realm.init(context);
-        config = new RealmConfiguration.Builder().name("notes.realm").build();
+        key = keyStore.getKey();
+        config = new RealmConfiguration.Builder().encryptionKey(key).name("notes.realm").build();
 
     }
 
@@ -41,17 +44,17 @@ public class DataStorage implements DataBase {
         realm.commitTransaction();
         realm.close();
 
-        Log.d("NOTES", "sorted with" + notes.get(0).getTitle());
+
 
         return notes;
     }
 
     public Note getNote(String id) {
-        Log.d("NOTES", "asdasdasd " + id);
+
         Realm realm = Realm.getInstance(config);
         realm.beginTransaction();
         Note realmNote = realm.where(Note.class).equalTo("id", id).findFirst();
-        Log.d("NOTES", realmNote.getTitle() + " " + id);
+
         Note note = realm.copyFromRealm(realmNote);
         realm.commitTransaction();
         realm.close();
@@ -67,7 +70,6 @@ public class DataStorage implements DataBase {
     }
 
     public void updateNote(String id, String title, String content, long deadline) {
-        Log.d("NOTES", "update " + id);
         Realm realm = Realm.getInstance(config);
         realm.beginTransaction();
         Note realmNote = realm.where(Note.class).equalTo("id", id).findFirst();
@@ -79,7 +81,7 @@ public class DataStorage implements DataBase {
     }
 
     public void updateNote(String id, String title, String content) {
-        Log.d("NOTES", "update " + id);
+
         Realm realm = Realm.getInstance(config);
         realm.beginTransaction();
         Note realmNote = realm.where(Note.class).equalTo("id", id).findFirst();
