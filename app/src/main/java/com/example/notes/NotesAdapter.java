@@ -102,19 +102,17 @@ public class NotesAdapter extends BaseAdapter {
     private void initDeleteDialog(View v) {
         ad = new AlertDialog.Builder(ctx);
         ad.setMessage(R.string.delete_req);
-        ad.setPositiveButton(R.string.delete_yes, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int arg1) {
+        ad.setPositiveButton(R.string.delete_yes, ((DialogInterface dialog, int arg1)-> {
                 Note deleteNote = notes.get((int) v.getTag());
                 notes.remove((int) v.getTag());
                 storage.removeNote(deleteNote);
                 notifyDataSetChanged();
-            }
-        });
-        ad.setNegativeButton(R.string.delete_no, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int arg1) {
+                dialog.cancel();
+            }));
 
-            }
-        });
+        ad.setNegativeButton(R.string.delete_no, ((DialogInterface dialog, int arg1)-> {
+            dialog.cancel();
+        }));
     }
 
 }
