@@ -18,8 +18,8 @@ import java.text.DateFormat;
 import java.util.Date;
 
 public class ChangeNoteActivity extends AppCompatActivity implements DeadPicker.DateListener {
-    // TODO Переверстать активити
-// TODO Добавить выделение просранного дедлайна
+
+// TODO проверить выделение просранного дедлайна
     // TODO попытаться сделать шифрование заметочерез Realm
     private DataBase dataStorage;
 

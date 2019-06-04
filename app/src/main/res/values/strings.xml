@@ -39,6 +39,10 @@
     <string name="ok_btn" >ок</string>
     <string name="no_btn" >отмена</string>
 
+    <string name="delete_req" >Удалить запись</string>
+    <string name="delete_yes" >да</string>
+    <string name="delete_no" >нет</string>
+
 
 
 </resources>

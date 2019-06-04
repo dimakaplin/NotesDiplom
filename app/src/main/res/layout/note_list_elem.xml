@@ -26,7 +26,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"
-        android:text="dasdasdasdasdasdasdasdas"
+        android:text="@string/content"
         app:layout_constraintEnd_toStartOf="@id/btn_add"
         app:layout_constraintStart_toEndOf="@id/btn_delete"
         app:layout_constraintTop_toBottomOf="@id/title" />
@@ -37,7 +37,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="маленькая, в масле, воняет"
+        android:text="@string/deadline_text"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:background="@drawable/red_card"
         app:layout_constraintEnd_toStartOf="@id/btn_add"
         app:layout_constraintTop_toBottomOf="@id/content" />
 
@@ -58,7 +61,9 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="маленькая, в масле, воняет"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:text="@string/was_changed"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btn_add"
         app:layout_constraintTop_toBottomOf="@id/deadline" />

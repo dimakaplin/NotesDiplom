@@ -1,6 +1,8 @@
 package com.example.notes;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +23,8 @@ public class NotesAdapter extends BaseAdapter {
     DataBase storage = App.getDataStorage();
     DateFormat dateParser = App.getDatePattern();
     private List<Note> notes;
+
+    AlertDialog.Builder ad;
 
 
     public NotesAdapter(Context ctx, List<Note> notes) {
@@ -64,8 +68,12 @@ public class NotesAdapter extends BaseAdapter {
 
         if (note.hasDeadLine()) {
             ((TextView) view.findViewById(R.id.deadline)).setText(dateParser.format(new Date(note.getDeadLine())));
+            if (note.getDeadLine() > new Date().getTime()) {
+                ((TextView) view.findViewById(R.id.deadline)).getBackground().setAlpha(0);
+            }
         } else {
             ((TextView) view.findViewById(R.id.deadline)).setText("");
+            ((TextView) view.findViewById(R.id.deadline)).getBackground().setAlpha(0);
         }
 
         ((TextView) view.findViewById(R.id.was_changed)).setText(dateParser.format(new Date(note.getChangeTime())));
@@ -74,11 +82,8 @@ public class NotesAdapter extends BaseAdapter {
         ImageButton btnAdd = (ImageButton) view.findViewById(R.id.btn_add);
 
         btnDelete.setOnClickListener((v) -> {
-            Note deleteNote = this.notes.get((int) v.getTag());
-
-            this.notes.remove((int) v.getTag());
-            storage.removeNote(deleteNote);
-            notifyDataSetChanged();
+            initDeleteDialog(v);
+            ad.show();
         });
 
         btnAdd.setOnClickListener((v) -> {
@@ -92,6 +97,24 @@ public class NotesAdapter extends BaseAdapter {
         btnDelete.setTag(position);
         btnAdd.setTag(position);
         return view;
+    }
+
+    private void initDeleteDialog(View v) {
+        ad = new AlertDialog.Builder(ctx);
+        ad.setMessage(R.string.delete_req);
+        ad.setPositiveButton(R.string.delete_yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int arg1) {
+                Note deleteNote = notes.get((int) v.getTag());
+                notes.remove((int) v.getTag());
+                storage.removeNote(deleteNote);
+                notifyDataSetChanged();
+            }
+        });
+        ad.setNegativeButton(R.string.delete_no, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int arg1) {
+
+            }
+        });
     }
 
 }

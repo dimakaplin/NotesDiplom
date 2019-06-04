@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO Сделать удаление элемента через алерт
+// TODO проверить удаление элемента через алерт
 public class NotesList extends AppCompatActivity {
 
     private List<Note> notes = new ArrayList<>();
