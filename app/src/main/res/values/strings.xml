@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Notes</string>
+    <string name="app_name">Список дел</string>
 
     <string name="pin">Введите ваш пин</string>
     <string name="pin_new">Введите новый ваш пин</string>
@@ -25,8 +25,8 @@
     <string name="title" >Название</string>
     <string name="content" >Описание</string>
 
-    <string name="deadline_text" >Дэдлайн</string>
-    <string name="deadline_text_elem" >дэдлайн:</string>
+    <string name="deadline_text" >Дедлайн</string>
+    <string name="deadline_text_elem" >дедлайн:</string>
     <string name="was_changed" >Изменено</string>
     <string name="was_changed_elem" >изменено:</string>
 
@@ -42,7 +42,5 @@
     <string name="delete_req" >Удалить запись</string>
     <string name="delete_yes" >да</string>
     <string name="delete_no" >нет</string>
-
-
 
 </resources>

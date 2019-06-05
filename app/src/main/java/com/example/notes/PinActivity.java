@@ -44,6 +44,18 @@ public class PinActivity extends AppCompatActivity {
         init();
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        authWithPin();
+        Log.d("NOTES", "restart");
+        Log.d("NOTES", pin);
+    }
+
+
+
+
+
 
     private void init() {
         keyStore = App.getKeystore();
@@ -83,30 +95,15 @@ public class PinActivity extends AppCompatActivity {
     }
 
     private void numClick(Button btn) {
-        Log.d("NOTES", btn.getText().toString());
         if (pin.length() < 4) {
-            Log.d("NOTES", String.valueOf(pin.length() < 4));
             circleColorChange(false, pin.length());
             String num = btn.getText().toString();
 
             pin = pin + num;
         }
+        authWithPin();
 
-        if (pin.length() == 4 && keyStore.hasPin()) {
-            Log.d("NOTES", String.valueOf(keyStore.hasPin()));
-            if (keyStore.checkPin(pin)) {
-                intent = new Intent(PinActivity.this, NotesList.class);
-                startActivity(intent);
-            } else {
-                String message = getText(R.string.check_pin_failed).toString();
-                Toast.makeText(PinActivity.this, message, Toast.LENGTH_LONG).show();
-                clearAll();
-            }
-        } else if (pin.length() == 4 && !keyStore.hasPin()) {
-            keyStore.saveNew(pin);
-            intent = new Intent(PinActivity.this, NotesList.class);
-            startActivity(intent);
-        }
+
     }
 
     private void clearAll() {
@@ -128,7 +125,24 @@ public class PinActivity extends AppCompatActivity {
             Log.d("NOTES", "clear after" + pin);
         }
 
+    }
 
+    private void authWithPin() {
+        if (pin.length() == 4 && keyStore.hasPin()) {
+            Log.d("NOTES", String.valueOf(keyStore.hasPin()));
+            if (keyStore.checkPin(pin)) {
+                intent = new Intent(PinActivity.this, NotesList.class);
+                startActivity(intent);
+            } else {
+                String message = getText(R.string.check_pin_failed).toString();
+                Toast.makeText(PinActivity.this, message, Toast.LENGTH_LONG).show();
+                clearAll();
+            }
+        } else if (pin.length() == 4 && !keyStore.hasPin()) {
+            keyStore.saveNew(pin);
+            intent = new Intent(PinActivity.this, NotesList.class);
+            startActivity(intent);
+        }
     }
 
     private void circleColorChange(boolean delete, int pinLength) {
@@ -137,28 +151,28 @@ public class PinActivity extends AppCompatActivity {
                 if (delete) {
                     circle1.setBackgroundResource(R.drawable.grey_circle);
                 } else {
-                    circle1.setBackgroundResource(R.drawable.red_circle);
+                    circle1.setBackgroundResource(R.drawable.red_circle_pin);
                 }
                 break;
             case 1:
                 if (delete) {
                     circle2.setBackgroundResource(R.drawable.grey_circle);
                 } else {
-                    circle2.setBackgroundResource(R.drawable.red_circle);
+                    circle2.setBackgroundResource(R.drawable.red_circle_pin);
                 }
                 break;
             case 2:
                 if (delete) {
                     circle3.setBackgroundResource(R.drawable.grey_circle);
                 } else {
-                    circle3.setBackgroundResource(R.drawable.red_circle);
+                    circle3.setBackgroundResource(R.drawable.red_circle_pin);
                 }
                 break;
             case 3:
                 if (delete) {
                     circle4.setBackgroundResource(R.drawable.grey_circle);
                 } else {
-                    circle4.setBackgroundResource(R.drawable.red_circle);
+                    circle4.setBackgroundResource(R.drawable.red_circle_pin);
                 }
                 break;
             default:

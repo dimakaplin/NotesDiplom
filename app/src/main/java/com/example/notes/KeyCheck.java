@@ -8,7 +8,6 @@ import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKeys;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.util.Random;
@@ -50,7 +49,7 @@ public class KeyCheck implements KeyStore {
     }
 
     public byte[] getKey() {
-        if(myNoteSharedPref.contains(KEY)) {
+        if (myNoteSharedPref.contains(KEY)) {
             byte[] key = myNoteSharedPref.getString(KEY, "").getBytes(StandardCharsets.ISO_8859_1);
             Log.d("NOTES", new String(key, StandardCharsets.ISO_8859_1));
             return key;

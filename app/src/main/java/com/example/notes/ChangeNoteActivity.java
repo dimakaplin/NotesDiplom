@@ -19,8 +19,6 @@ import java.util.Date;
 
 public class ChangeNoteActivity extends AppCompatActivity implements DeadPicker.DateListener {
 
-// TODO проверить выделение просранного дедлайна
-    // TODO попытаться сделать шифрование заметочерез Realm
     private DataBase dataStorage;
 
     private EditText title;

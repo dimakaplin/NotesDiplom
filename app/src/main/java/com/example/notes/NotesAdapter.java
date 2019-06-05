@@ -75,12 +75,15 @@ public class NotesAdapter extends BaseAdapter {
         if (!note.hasDeadLine()) {
             deadline.setText("");
             deadline.setBackgroundResource(R.color.white);
+            deadline.getBackground().setAlpha(0);
         } else {
             deadline.setText(dateParser.format(new Date(note.getDeadLine())));
             if (checkDeadLineStroke(note)) {
                 deadline.setBackgroundResource(R.drawable.orange_card);
+                deadline.getBackground().setAlpha(100);
             } else {
                 deadline.setBackgroundResource(R.drawable.red_card);
+                deadline.getBackground().setAlpha(100);
             }
         }
 

@@ -72,6 +72,7 @@ public class NotesList extends AppCompatActivity {
         super.onRestart();
         Log.d("NOTES", "resumed");
         init();
+
     }
 
     private void init() {
@@ -94,6 +95,8 @@ public class NotesList extends AppCompatActivity {
         deadlineSort.setOnClickListener(v -> clickSort(v));
         alphaSort.setOnClickListener(v -> clickSort(v));
 
+        setBackgroundCircle();
+
     }
 
     private void clickSort(View v) {
@@ -102,7 +105,6 @@ public class NotesList extends AppCompatActivity {
             case R.id.date_sort:
                 desc = typeSort.equals("changeTime") != desc;
                 typeSort = "changeTime";
-                dateSort.setBackgroundResource(R.drawable.low_green_circle);
                 break;
             case R.id.deadlne_sort:
                 desc = typeSort.equals("deadLine") != desc;
@@ -114,9 +116,6 @@ public class NotesList extends AppCompatActivity {
                 break;
         }
         setBackgroundCircle();
-
-
-        dirSort.setImageResource(desc ? R.drawable.up_sort : R.drawable.down_sort);
 
         notes.clear();
         notes.addAll(dataStorage.getNotes(typeSort, desc));
@@ -143,11 +142,12 @@ public class NotesList extends AppCompatActivity {
                 alphaSort.setBackgroundResource(R.drawable.low_green_circle);
                 break;
         }
+        dirSort.setImageResource(desc ? R.drawable.up_sort : R.drawable.down_sort);
     }
 
 
     private void fillNotesList() {
-        notes = dataStorage.getNotes();
+        notes = dataStorage.getNotes(typeSort, desc);
 //        Log.d("NOTES", notes.get(0).getTitle());
     }
 }

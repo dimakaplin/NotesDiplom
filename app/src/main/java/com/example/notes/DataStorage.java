@@ -24,15 +24,6 @@ public class DataStorage implements DataBase {
 
     }
 
-    public List<Note> getNotes() {
-        Realm realm = Realm.getInstance(config);
-        realm.beginTransaction();
-        List<Note> notes = realm.copyFromRealm(realm.where(Note.class).findAll());
-        realm.commitTransaction();
-        realm.close();
-
-        return notes;
-    }
 
     public List<Note> getNotes(String sortType, boolean desc) {
         Log.d("NOTES", String.valueOf(desc));
@@ -43,7 +34,6 @@ public class DataStorage implements DataBase {
         List<Note> notes = realm.copyFromRealm(results);
         realm.commitTransaction();
         realm.close();
-
 
 
         return notes;

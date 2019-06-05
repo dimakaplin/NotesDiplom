@@ -3,7 +3,6 @@ package com.example.notes;
 import java.util.List;
 
 public interface DataBase {
-    List<Note> getNotes();
 
     List<Note> getNotes(String sortType, boolean desc);
 

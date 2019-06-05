@@ -10,5 +10,8 @@
     <color name="low_green">#C6E98D</color>
     <color name="orange">#E49013</color>
     <color name="black">#000000</color>
+    <color name="title_color">#000000</color>
+    <color name="grey">#6F6F6F</color>
+    <color name="low_grey">#D0C4C4C4</color>
 
 </resources>

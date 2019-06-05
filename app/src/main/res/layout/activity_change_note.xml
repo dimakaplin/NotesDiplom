@@ -43,7 +43,7 @@
 
     <TextView
         android:layout_height="40dp"
-        android:background="@drawable/card"
+        android:background="@drawable/blocked_card"
         android:gravity="center_vertical"
         android:id="@+id/deadline_ch"
         android:layout_width="0dp"
@@ -64,7 +64,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
-        android:background="@drawable/white_circle"
+        android:background="@drawable/low_green_circle"
         android:src="@drawable/add_dead"
         app:layout_constraintBottom_toTopOf="@+id/btn_save"
         app:layout_constraintEnd_toStartOf="@+id/delete_dead"
@@ -79,7 +79,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/white_circle"
+        android:background="@drawable/red_circle"
         android:src="@drawable/delete_dead"
         app:layout_constraintBottom_toTopOf="@+id/btn_save"
         app:layout_constraintEnd_toEndOf="parent"
