@@ -18,6 +18,9 @@ import java.util.List;
 
 public class NotesAdapter extends BaseAdapter {
     final String LOG_TAG = "myLogs";
+    final String HAS_TIME = "has_time";
+    final String TODAY = "today";
+    final String FAIL = "fail";
     Context ctx;
     LayoutInflater lInflater;
     DataBase storage = App.getDataStorage();
@@ -72,18 +75,27 @@ public class NotesAdapter extends BaseAdapter {
         title.setText(note.getTitle());
         content.setText(note.getContent());
 
+
         if (!note.hasDeadLine()) {
             deadline.setText("");
             deadline.setBackgroundResource(R.color.white);
             deadline.getBackground().setAlpha(0);
         } else {
             deadline.setText(dateParser.format(new Date(note.getDeadLine())));
-            if (checkDeadLineStroke(note)) {
-                deadline.setBackgroundResource(R.drawable.orange_card);
-                deadline.getBackground().setAlpha(100);
-            } else {
-                deadline.setBackgroundResource(R.drawable.red_card);
-                deadline.getBackground().setAlpha(100);
+            String deadlineCheckingResult = checkDeadLineStroke(note);
+            switch (deadlineCheckingResult) {
+                case TODAY:
+                    deadline.setBackgroundResource(R.drawable.orange_card);
+                    deadline.getBackground().setAlpha(100);
+                break;
+                case HAS_TIME:
+                    deadline.setBackgroundResource(R.color.white);
+                    deadline.getBackground().setAlpha(0);
+                    break;
+                case FAIL:
+                    deadline.setBackgroundResource(R.drawable.red_card);
+                    deadline.getBackground().setAlpha(100);
+                    break;
             }
         }
 
@@ -128,12 +140,16 @@ public class NotesAdapter extends BaseAdapter {
         }));
     }
 
-    private boolean checkDeadLineStroke(Note note) {
-        boolean isDeadLineToday = false;
+    private String checkDeadLineStroke(Note note) {
+        String result;
         if (note.getDeadLine() > new Date().getTime() && dateToDay.format(new Date(note.getDeadLine())).equals(dateToDay.format(new Date().getTime()))) {
-            isDeadLineToday = true;
+            result = TODAY;
+        } else if (note.getDeadLine() < new Date().getTime()) {
+            result = HAS_TIME;
+        } else {
+            result = FAIL;
         }
-        return isDeadLineToday;
+        return result;
     }
 
 }
