@@ -27,7 +27,6 @@ public class NotesAdapter extends BaseAdapter {
     AlertDialog.Builder ad;
     String deleteMessage;
 
-
     public NotesAdapter(Context ctx, List<Note> notes) {
         this.notes = notes;
         this.ctx = ctx;
@@ -57,33 +56,38 @@ public class NotesAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        Note note = getNote(position);
+
         View view = convertView;
+
         if (view == null) {
             view = lInflater.inflate(R.layout.note_list_elem, parent, false);
         }
 
-        Note note = getNote(position);
+        TextView title = view.findViewById(R.id.title);
+        TextView content = view.findViewById(R.id.content);
+        TextView deadline = view.findViewById(R.id.deadline);
+        TextView wasChanged = view.findViewById(R.id.was_changed);
 
-        ((TextView) view.findViewById(R.id.title)).setText(note.getTitle());
-        ((TextView) view.findViewById(R.id.content)).setText(note.getContent());
+        title.setText(note.getTitle());
+        content.setText(note.getContent());
 
-        if (note.hasDeadLine()) {
-            ((TextView) view.findViewById(R.id.deadline)).setText(dateParser.format(new Date(note.getDeadLine())));
-            Log.d("NOTES", note.getTitle() + " " + String.valueOf(note.hasDeadLine()));
-            if (note.getDeadLine() > new Date().getTime() && dateToDay.format(new Date(note.getDeadLine())).equals(dateToDay.format(new Date().getTime()))) {
-                ((TextView) view.findViewById(R.id.deadline)).setBackgroundResource(R.drawable.orange_card);
-            } else if (note.getDeadLine() < new Date().getTime()) {
-                ((TextView) view.findViewById(R.id.deadline)).setBackgroundResource(R.drawable.red_card);
-            }
+        if (!note.hasDeadLine()) {
+            deadline.setText("");
+            deadline.setBackgroundResource(R.color.white);
         } else {
-            ((TextView) view.findViewById(R.id.deadline)).setText("");
-            // ((TextView) view.findViewById(R.id.deadline)).getBackground().setAlpha(0);
+            deadline.setText(dateParser.format(new Date(note.getDeadLine())));
+            if (checkDeadLineStroke(note)) {
+                deadline.setBackgroundResource(R.drawable.orange_card);
+            } else {
+                deadline.setBackgroundResource(R.drawable.red_card);
+            }
         }
 
-        ((TextView) view.findViewById(R.id.was_changed)).setText(dateParser.format(new Date(note.getChangeTime())));
+        wasChanged.setText(dateParser.format(new Date(note.getChangeTime())));
 
-        ImageButton btnDelete = (ImageButton) view.findViewById(R.id.btn_delete);
-        ImageButton btnAdd = (ImageButton) view.findViewById(R.id.btn_add);
+        ImageButton btnDelete = view.findViewById(R.id.btn_delete);
+        ImageButton btnAdd = view.findViewById(R.id.btn_add);
 
         btnDelete.setOnClickListener((v) -> {
             initDeleteDialog(v);
@@ -119,6 +123,14 @@ public class NotesAdapter extends BaseAdapter {
         ad.setNegativeButton(R.string.delete_no, ((DialogInterface dialog, int arg1) -> {
             dialog.cancel();
         }));
+    }
+
+    private boolean checkDeadLineStroke(Note note) {
+        boolean isDeadLineToday = false;
+        if (note.getDeadLine() > new Date().getTime() && dateToDay.format(new Date(note.getDeadLine())).equals(dateToDay.format(new Date().getTime()))) {
+            isDeadLineToday = true;
+        }
+        return isDeadLineToday;
     }
 
 }
