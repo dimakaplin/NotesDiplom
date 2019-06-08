@@ -144,7 +144,7 @@ public class NotesAdapter extends BaseAdapter {
         String result;
         if (note.getDeadLine() > new Date().getTime() && dateToDay.format(new Date(note.getDeadLine())).equals(dateToDay.format(new Date().getTime()))) {
             result = TODAY;
-        } else if (note.getDeadLine() < new Date().getTime()) {
+        } else if (note.getDeadLine() > new Date().getTime()) {
             result = HAS_TIME;
         } else {
             result = FAIL;
