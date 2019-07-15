@@ -66,7 +66,9 @@ public class SettingsActivity extends AppCompatActivity {
             if (pin.length() == 4) {
                 errorText.setText("");
                 keyStore.saveNew(pin);
-                Toast.makeText(SettingsActivity.this, R.string.pin_message, Toast.LENGTH_SHORT).show();
+                onBackPressed();
+                // Toast.makeText(SettingsActivity.this, R.string.pin_message, Toast.LENGTH_SHORT).show();
+
             } else {
                 errorText.setText(ERROR_PIN);
             }
@@ -81,10 +83,10 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void checkVisible(boolean vis) {
         if (vis) {
-            visibleControl.setImageResource(R.drawable.vis_off);
+            visibleControl.setImageResource(R.drawable.vis_on);
             pinEdit.setTransformationMethod(null);
         } else {
-            visibleControl.setImageResource(R.drawable.vis_on);
+            visibleControl.setImageResource(R.drawable.vis_off);
             pinEdit.setTransformationMethod(new PasswordTransformationMethod());
         }
     }

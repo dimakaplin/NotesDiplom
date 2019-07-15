@@ -34,6 +34,8 @@ public class ChangeNoteActivity extends AppCompatActivity implements DeadPicker.
     private ImageButton deadAdd;
     private ImageButton deadDelete;
 
+    private boolean wasSaved = false;
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -61,6 +63,21 @@ public class ChangeNoteActivity extends AppCompatActivity implements DeadPicker.
         id = getIntent().hasExtra("id") ? getIntent().getStringExtra("id") : "";
         init();
         fillEdits();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (!wasSaved) {
+            saveNote();
+        }
+
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        wasSaved = false;
     }
 
     private void init() {
@@ -136,16 +153,20 @@ public class ChangeNoteActivity extends AppCompatActivity implements DeadPicker.
             if ("".equals(id)) {
                 Note note = new Note(noteTitle, noteContent);
                 dataStorage.saveNote(note);
+                wasSaved = true;
             } else {
                 dataStorage.updateNote(changedNote.getId(), noteTitle, noteContent);
+                wasSaved = true;
             }
         } else {
             try {
                 if ("".equals(id)) {
                     Note note = new Note(noteTitle, noteContent, deadLineTime);
                     dataStorage.saveNote(note);
+                    wasSaved = true;
                 } else {
                     dataStorage.updateNote(changedNote.getId(), noteTitle, noteContent, deadLineTime);
+                    wasSaved = true;
                 }
 
             } catch (Exception e) {
