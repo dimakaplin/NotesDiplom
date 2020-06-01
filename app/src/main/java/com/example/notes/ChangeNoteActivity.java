@@ -68,9 +68,9 @@ public class ChangeNoteActivity extends AppCompatActivity implements DeadPicker.
     @Override
     protected void onPause() {
         super.onPause();
-        if (!wasSaved) {
-            saveNote();
-        }
+//        if (!wasSaved) {
+//            saveNote();
+//        }
 
     }
 
